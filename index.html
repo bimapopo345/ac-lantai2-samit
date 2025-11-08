@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Info AC Kiri - Kanan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body style="background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3730a3 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1rem;">
+    <div style="max-width: 64rem; width: 100%;">
+        <!-- Header -->
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h1 style="font-size: 3rem; font-weight: bold; color: white; margin-bottom: 0.5rem;">
+                🌡️ Info AC Kantor
+            </h1>
+            <p style="color: #bfdbfe; font-size: 1.125rem;">Sistem Rotasi AC Kiri - Kanan</p>
+        </div>
+
+        <!-- Main Card -->
+        <div style="background: white; border-radius: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); padding: 2.5rem;">
+            <!-- Status Hari Ini -->
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <p style="color: #6b7280; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Status Hari Ini</p>
+                <div style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem;">
+                    <span id="todayDate" style="color: #1f2937;"></span>
+                </div>
+                <div style="display: inline-block; background: linear-gradient(to right, #3b82f6, #4f46e5); color: white; padding: 0.75rem 2rem; border-radius: 9999px; font-size: 1.25rem; font-weight: 600;">
+                    AC <span id="todayStatus" style="text-transform: uppercase;"></span> Aktif
+                </div>
+            </div>
+
+            <!-- Waktu Sekarang -->
+            <div style="background: linear-gradient(to right, #fef3c7, #fde68a); border-radius: 1rem; padding: 1.5rem; margin-bottom: 1.5rem; border: 2px solid #fbbf24;">
+                <p style="text-align: center; color: #78350f; font-weight: 600; margin-bottom: 1rem;">🕐 Waktu Hari Ini</p>
+                <div style="text-align: center;">
+                    <div id="currentTime" style="font-size: 3.5rem; font-weight: bold; color: #92400e; margin-bottom: 0.5rem;">00:00:00</div>
+                    <div id="currentDay" style="font-size: 1.125rem; color: #78350f; font-weight: 500;"></div>
+                </div>
+            </div>
+
+            <!-- Countdown Pergantian Hari -->
+            <div style="background: linear-gradient(to right, #e9d5ff, #dbeafe); border-radius: 1rem; padding: 1.5rem; margin-bottom: 2rem;">
+                <p style="text-align: center; color: #374151; font-weight: 600; margin-bottom: 1rem;">⏰ Countdown Pergantian Hari</p>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+                    <div style="text-align: center;">
+                        <div style="background: white; border-radius: 0.75rem; padding: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                            <div id="hours" style="font-size: 2.5rem; font-weight: bold; color: #4f46e5;">00</div>
+                            <div style="font-size: 0.875rem; color: #6b7280; margin-top: 0.25rem;">Jam</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="background: white; border-radius: 0.75rem; padding: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                            <div id="minutes" style="font-size: 2.5rem; font-weight: bold; color: #4f46e5;">00</div>
+                            <div style="font-size: 0.875rem; color: #6b7280; margin-top: 0.25rem;">Menit</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="background: white; border-radius: 0.75rem; padding: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                            <div id="seconds" style="font-size: 2.5rem; font-weight: bold; color: #4f46e5;">00</div>
+                            <div style="font-size: 0.875rem; color: #6b7280; margin-top: 0.25rem;">Detik</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="background: white; border-radius: 0.75rem; padding: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                            <div id="milliseconds" style="font-size: 2.5rem; font-weight: bold; color: #4f46e5;">00</div>
+                            <div style="font-size: 0.875rem; color: #6b7280; margin-top: 0.25rem;">MS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AC Buttons -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+                <!-- AC Kiri -->
+                <button id="btnKiri" style="position: relative; overflow: hidden; border-radius: 1rem; transition: all 0.3s; border: none; cursor: pointer;">
+                    <div style="position: absolute; inset: 0; background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%); opacity: 0.9;"></div>
+                    <div style="position: relative; padding: 2rem; text-align: center;">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">👈</div>
+                        <h3 style="font-size: 2rem; font-weight: bold; color: white; margin-bottom: 0.5rem;">AC KIRI</h3>
+                        <div id="statusKiri" style="font-size: 0.875rem; color: #dbeafe; font-weight: 600;"></div>
+                    </div>
+                </button>
+
+                <!-- AC Kanan -->
+                <button id="btnKanan" style="position: relative; overflow: hidden; border-radius: 1rem; transition: all 0.3s; border: none; cursor: pointer;">
+                    <div style="position: absolute; inset: 0; background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%); opacity: 0.9;"></div>
+                    <div style="position: relative; padding: 2rem; text-align: center;">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">👉</div>
+                        <h3 style="font-size: 2rem; font-weight: bold; color: white; margin-bottom: 0.5rem;">AC KANAN</h3>
+                        <div id="statusKanan" style="font-size: 0.875rem; color: #d1fae5; font-weight: 600;"></div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Info Besok -->
+            <div style="background: linear-gradient(to right, #fffbeb, #fed7aa); border-radius: 1rem; padding: 1.5rem; text-align: center; border: 2px solid #fbbf24;">
+                <p style="color: #374151; font-weight: 600; margin-bottom: 0.5rem;">📅 Besok</p>
+                <p style="font-size: 1.125rem; color: #1f2937;">
+                    AC <span id="tomorrowStatus" style="font-weight: bold; color: #ea580c; text-transform: uppercase;"></span> akan aktif
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer Info -->
+        <div style="text-align: center; margin-top: 1.5rem; color: #bfdbfe; font-size: 0.875rem;">
+            <p>Sistem otomatis berganti setiap hari pada pukul 00:00</p>
+        </div>
+    </div>
+
+    <style>
+        @keyframes pulseGlow {
+            0%, 100% { 
+                box-shadow: 0 0 30px rgba(34, 197, 94, 0.6), 0 0 60px rgba(34, 197, 94, 0.3);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(34, 197, 94, 0.8), 0 0 80px rgba(34, 197, 94, 0.4);
+                transform: scale(1.02);
+            }
+        }
+        .active-glow {
+            animation: pulseGlow 2s infinite !important;
+        }
+        button:hover {
+            transform: scale(1.05) !important;
+        }
+        @media (max-width: 768px) {
+            body > div > div:first-child h1 {
+                font-size: 2rem !important;
+            }
+            #todayDate {
+                font-size: 1.5rem !important;
+            }
+            .countdown-item {
+                font-size: 1.5rem !important;
+            }
+        }
+    </style>
+
+    <script>
+        // ===== PENGATURAN =====
+        // Ubah tanggal referensi dan AC yang aktif di sini
+        const REFERENCE_DATE = '2025-11-08'; // Format: YYYY-MM-DD (hari ini: Sabtu)
+        const REFERENCE_AC = 'kanan'; // AC yang aktif di tanggal referensi: 'kiri' atau 'kanan'
+
+        // ===== JANGAN UBAH KODE DI BAWAH INI =====
+        
+        function getACStatus(date) {
+            // Parse tanggal referensi
+            const [refYear, refMonth, refDay] = REFERENCE_DATE.split('-').map(Number);
+            const referenceDate = new Date(refYear, refMonth - 1, refDay);
+            referenceDate.setHours(0, 0, 0, 0);
+            
+            // Parse tanggal yang dicek
+            const currentDate = new Date(date);
+            currentDate.setHours(0, 0, 0, 0);
+            
+            // Hitung jumlah hari kerja (Senin-Sabtu) antara referenceDate dan currentDate
+            let workDays = 0;
+            let tempDate = new Date(referenceDate);
+            
+            if (currentDate >= referenceDate) {
+                // Hitung maju
+                while (tempDate < currentDate) {
+                    tempDate.setDate(tempDate.getDate() + 1);
+                    const dayOfWeek = tempDate.getDay();
+                    // Skip Minggu (0)
+                    if (dayOfWeek !== 0) {
+                        workDays++;
+                    }
+                }
+            } else {
+                // Hitung mundur
+                while (tempDate > currentDate) {
+                    const dayOfWeek = tempDate.getDay();
+                    // Skip Minggu (0)
+                    if (dayOfWeek !== 0) {
+                        workDays--;
+                    }
+                    tempDate.setDate(tempDate.getDate() - 1);
+                }
+            }
+            
+            // Logika rotasi berdasarkan jumlah hari kerja:
+            // workDays = 0 (hari yang sama) -> sesuai REFERENCE_AC
+            // workDays = 1 (hari kerja berikutnya) -> kebalikan dari REFERENCE_AC
+            // workDays = 2 -> sama dengan REFERENCE_AC
+            // dst...
+            
+            const isEvenWorkDay = workDays % 2 === 0;
+            
+            if (REFERENCE_AC === 'kanan') {
+                return isEvenWorkDay ? 'kanan' : 'kiri';
+            } else {
+                return isEvenWorkDay ? 'kiri' : 'kanan';
+            }
+        }
+
+        function updateStatus() {
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+
+            const todayAC = getACStatus(today);
+            const tomorrowAC = getACStatus(tomorrow);
+
+            // Update tanggal
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('todayDate').textContent = today.toLocaleDateString('id-ID', options);
+
+            // Update status hari ini
+            document.getElementById('todayStatus').textContent = todayAC;
+
+            // Update status besok
+            document.getElementById('tomorrowStatus').textContent = tomorrowAC;
+
+            // Update button states
+            const btnKiri = document.getElementById('btnKiri');
+            const btnKanan = document.getElementById('btnKanan');
+            const statusKiri = document.getElementById('statusKiri');
+            const statusKanan = document.getElementById('statusKanan');
+
+            // Reset semua style
+            btnKiri.classList.remove('active-glow');
+            btnKanan.classList.remove('active-glow');
+            btnKiri.style.opacity = '1';
+            btnKanan.style.opacity = '1';
+            btnKiri.style.transform = 'scale(1)';
+            btnKanan.style.transform = 'scale(1)';
+
+            if (todayAC === 'kiri') {
+                btnKiri.classList.add('active-glow');
+                btnKanan.style.opacity = '0.5';
+                statusKiri.textContent = '✅ AKTIF HARI INI';
+                statusKanan.textContent = '⏸️ Tidak Aktif';
+            } else {
+                btnKanan.classList.add('active-glow');
+                btnKiri.style.opacity = '0.5';
+                statusKanan.textContent = '✅ AKTIF HARI INI';
+                statusKiri.textContent = '⏸️ Tidak Aktif';
+            }
+        }
+
+        function updateCurrentTime() {
+            const now = new Date();
+            
+            // Format waktu HH:MM:SS
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('currentTime').textContent = `${hours}:${minutes}:${seconds}`;
+            
+            // Update hari
+            const dayOptions = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+            document.getElementById('currentDay').textContent = now.toLocaleDateString('id-ID', dayOptions);
+        }
+
+        function updateCountdown() {
+            const now = new Date();
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(0, 0, 0, 0);
+
+            const diff = tomorrow - now;
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            const milliseconds = Math.floor((diff % 1000) / 10);
+
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            document.getElementById('milliseconds').textContent = String(milliseconds).padStart(2, '0');
+
+            // Jika countdown selesai (lewat tengah malam), update status
+            if (diff <= 0) {
+                updateStatus();
+            }
+        }
+
+        // Initialize
+        updateStatus();
+        updateCurrentTime();
+        updateCountdown();
+
+        // Update waktu sekarang setiap detik
+        setInterval(updateCurrentTime, 1000);
+
+        // Update countdown setiap 50ms untuk smooth animation
+        setInterval(updateCountdown, 50);
+
+        // Check status setiap 1 menit untuk memastikan status tetap akurat
+        setInterval(updateStatus, 60000);
+
+        // Debug info (bisa dihapus nanti)
+        console.log('=== AC ROTATION SYSTEM ===');
+        console.log('Reference Date:', REFERENCE_DATE);
+        console.log('Reference AC:', REFERENCE_AC);
+        console.log('Today:', new Date().toLocaleDateString('id-ID'));
+        console.log('Today AC:', getACStatus(new Date()));
+        
+        // Tampilkan preview 14 hari ke depan (termasuk Minggu)
+        console.log('\n=== 14 HARI KE DEPAN ===');
+        for (let i = 0; i < 14; i++) {
+            const testDate = new Date();
+            testDate.setDate(testDate.getDate() + i);
+            const dayOfWeek = testDate.getDay();
+            const acStatus = dayOfWeek === 0 ? 'LIBUR (Minggu)' : 'AC ' + getACStatus(testDate).toUpperCase();
+            console.log(
+                testDate.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long' }),
+                '->',
+                acStatus
+            );
+        }
+    </script>
+</body>
+</html>
