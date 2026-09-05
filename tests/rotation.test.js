@@ -25,19 +25,19 @@ vm.runInNewContext(
 const getACStatus = sandbox.getACStatus;
 
 assert.equal(
-  getACStatus(new Date('2025-11-08T12:00:00')),
+  getACStatus(new Date('2026-09-05T12:00:00')),
   'kanan',
-  'the configured reference date must keep AC kanan active',
+  'the verified baseline date must keep AC kanan active',
 );
 assert.equal(
-  getACStatus(new Date('2025-11-09T12:00:00')),
+  getACStatus(new Date('2026-09-06T12:00:00')),
   'kiri',
   'the next calendar day must alternate to AC kiri, including Sunday',
 );
 assert.equal(
-  getACStatus(new Date('2025-11-10T12:00:00')),
+  getACStatus(new Date('2026-09-07T12:00:00')),
   'kanan',
-  'the second calendar day after the reference must alternate back to AC kanan',
+  'the second calendar day after the baseline must alternate back to AC kanan',
 );
 
 console.log('rotation tests passed');
